@@ -24,15 +24,15 @@ public class PlayerMovement : MonoBehaviour
     private void movePlayer()
     {
         if (_isHorizontalPlayer) {
-            if (Input.GetKeyDown("d")) {
+            if (Input.GetKeyDown("d") || Input.GetKeyDown("right")) {
                 transform.position += new Vector3(1f, 0f, 0f);
-            } else if (Input.GetKeyDown("a")) {
+            } else if (Input.GetKeyDown("a") || Input.GetKeyDown("left")) {
                 transform.position += new Vector3(-1f, 0f, 0f);
             }
         } else {
-            if (Input.GetKeyDown("w")) {
+            if (Input.GetKeyDown("w") || Input.GetKeyDown("up")) {
                 transform.position += new Vector3(0f, 1f, 0f);
-            } else if (Input.GetKeyDown("s")) {
+            } else if (Input.GetKeyDown("s") || Input.GetKeyDown("down")) {
                 transform.position += new Vector3(0f, -1f, 0f);
             }
         }
