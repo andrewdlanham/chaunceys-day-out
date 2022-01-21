@@ -16,17 +16,36 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movePlayer();
+        if (isTryingToMove()) {
+            attemptMove();
+        }    
+    }
+
+    private bool isTryingToMove() 
+    {
+        return (getDirection() != "");
+    }
+
+    private void attemptMove() 
+    {
+        if (!isMovingIntoWall()) {
+            movePlayer();
+        }
     }
 
     private void movePlayer() 
     {
+        transform.position += getMovementVector();
+    }
+
+    private Vector3 getMovementVector() 
+    {
         switch (getDirection()) {
-            case "Up":       transform.position += new Vector3(0f, 1f, 0f); break;
-            case "Down":     transform.position += new Vector3(0f, -1f, 0f); break;
-            case "Left":     transform.position += new Vector3(-1f, 0f, 0f); break;
-            case "Right":    transform.position += new Vector3(1f, 0f, 0f); break;
-            default: break;
+            case "Up":       return new Vector3(0f, 1f, 0f);
+            case "Down":     return new Vector3(0f, -1f, 0f);
+            case "Left":     return new Vector3(-1f, 0f, 0f);
+            case "Right":    return new Vector3(1f, 0f, 0f);
+            default:         return new Vector3(0f, 0f, 0f);
         }
     }
 
@@ -50,6 +69,16 @@ public class PlayerMovement : MonoBehaviour
     
     }
 
+    private bool isMovingIntoWall() 
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, getMovementVector(), 1);
+        if (hit.collider != null) {
+            if (hit.transform.tag == "Wall") {
+                return true;
+            }
+        }
+        return false;
+    }
 
     
 }
