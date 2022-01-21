@@ -74,6 +74,7 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, getMovementVector(), 1);
         if (hit.collider != null) {
             if (hit.transform.tag == "Wall") {
+                Debug.Log("There is a wall in the way.");
                 return true;
             }
         }
