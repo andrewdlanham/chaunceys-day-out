@@ -16,26 +16,38 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        movePlayer();   
+        movePlayer();
     }
 
+    private void movePlayer() 
+    {
+        switch (getDirection()) {
+            case "Up":       transform.position += new Vector3(0f, 1f, 0f); break;
+            case "Down":     transform.position += new Vector3(0f, -1f, 0f); break;
+            case "Left":     transform.position += new Vector3(-1f, 0f, 0f); break;
+            case "Right":    transform.position += new Vector3(1f, 0f, 0f); break;
+            default: break;
+        }
+    }
 
-    // Reads keyboard inputs and updates the player's position accordingly
-    private void movePlayer()
+    private string getDirection() 
     {
         if (_isHorizontalPlayer) {
             if (Input.GetKeyDown("d") || Input.GetKeyDown("right")) {
-                transform.position += new Vector3(1f, 0f, 0f);
+                return "Right";
             } else if (Input.GetKeyDown("a") || Input.GetKeyDown("left")) {
-                transform.position += new Vector3(-1f, 0f, 0f);
+                return "Left";
             }
         } else {
             if (Input.GetKeyDown("w") || Input.GetKeyDown("up")) {
-                transform.position += new Vector3(0f, 1f, 0f);
+                return "Up";
             } else if (Input.GetKeyDown("s") || Input.GetKeyDown("down")) {
-                transform.position += new Vector3(0f, -1f, 0f);
+                return "Down";
             }
         }
+
+        return "";
+    
     }
 
 
