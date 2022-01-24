@@ -5,6 +5,7 @@ using UnityEngine;
 public class GateButton : MonoBehaviour
 {
     [SerializeField] Gate _gate;
+    [SerializeField] Sprite openSprite;
 
     // Start is called before the first frame update
     void Start()
@@ -22,5 +23,6 @@ public class GateButton : MonoBehaviour
     {
         Debug.Log("Gate button clicked.");
         _gate.gameObject.SetActive(false);
+        transform.GetComponent<SpriteRenderer>().sprite = openSprite;
     }
 }

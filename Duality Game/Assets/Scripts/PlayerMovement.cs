@@ -28,9 +28,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void attemptMove() 
     {
+
+        transform.GetComponent<BoxCollider2D>().enabled = false;
+
         if (!isMovingIntoWall()) {
-            movePlayer();
+            if (!isMovingIntoPlayer()) {
+                movePlayer();
+            }
+            
         }
+
+        transform.GetComponent<BoxCollider2D>().enabled = true;
+
     }
 
     private void movePlayer() 
@@ -75,6 +84,18 @@ public class PlayerMovement : MonoBehaviour
         if (hit.collider != null) {
             if (hit.transform.tag == "Wall") {
                 Debug.Log("There is a wall in the way.");
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private bool isMovingIntoPlayer() 
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, getMovementVector(), 1);
+        if (hit.collider != null) {
+            if (hit.transform.tag == "Player") {
+                Debug.Log("There is a player in the way.");
                 return true;
             }
         }
