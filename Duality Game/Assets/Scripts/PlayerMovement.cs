@@ -31,11 +31,8 @@ public class PlayerMovement : MonoBehaviour
 
         transform.GetComponent<BoxCollider2D>().enabled = false;
 
-        if (!isMovingIntoWall()) {
-            if (!isMovingIntoPlayer()) {
-                movePlayer();
-            }
-            
+        if (!isMovingIntoWall() && !isMovingIntoPlayer()) {
+            movePlayer();
         }
 
         transform.GetComponent<BoxCollider2D>().enabled = true;
@@ -83,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, getMovementVector(), 1);
         if (hit.collider != null) {
             if (hit.transform.tag == "Wall") {
-                Debug.Log("There is a wall in the way.");
+                printHitTransformTag(hit);
                 return true;
             }
         }
@@ -95,11 +92,21 @@ public class PlayerMovement : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(transform.position, getMovementVector(), 1);
         if (hit.collider != null) {
             if (hit.transform.tag == "Player") {
-                Debug.Log("There is a player in the way.");
+                printHitTransformTag(hit);
                 return true;
             }
         }
         return false;
+    }
+
+    private void printHitTransformTag(RaycastHit2D hit)
+    {
+        Debug.Log("There is a " + getHitTransformTag(hit) + " in the way.");
+    }
+
+    private string getHitTransformTag(RaycastHit2D hit)
+    {
+        return hit.transform.tag;
     }
 
     
