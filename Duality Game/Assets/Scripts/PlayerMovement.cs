@@ -6,18 +6,21 @@ public class PlayerMovement : MonoBehaviour
 {
 
     [SerializeField] private bool _isHorizontalPlayer;
+    private BoxCollider2D _boxCollider;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        _boxCollider = transform.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
         if (isTryingToMove()) {
+            _boxCollider.enabled = false;
             attemptMove();
+            _boxCollider.enabled = true;
         }    
     }
 
@@ -28,14 +31,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void attemptMove() 
     {
-
-        transform.GetComponent<BoxCollider2D>().enabled = false;
-
-        if (!isMovingIntoWall() && !isMovingIntoPlayer()) {
+        
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, getMovementVector(), 1);
+        if (hit.collider != null) {
+            string tag = getHitTransformTag(hit);
+            printHitTransformTag(tag);
+            if (tag != "Wall" && tag != "Player") {
+                movePlayer();
+            }
+        } else {
             movePlayer();
         }
-
-        transform.GetComponent<BoxCollider2D>().enabled = true;
 
     }
 
@@ -75,39 +81,22 @@ public class PlayerMovement : MonoBehaviour
     
     }
 
-    private bool isMovingIntoWall() 
-    {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, getMovementVector(), 1);
-        if (hit.collider != null) {
-            if (hit.transform.tag == "Wall") {
-                printHitTransformTag(hit);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private bool isMovingIntoPlayer() 
-    {
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, getMovementVector(), 1);
-        if (hit.collider != null) {
-            if (hit.transform.tag == "Player") {
-                printHitTransformTag(hit);
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void printHitTransformTag(RaycastHit2D hit)
-    {
-        Debug.Log("There is a " + getHitTransformTag(hit) + " in the way.");
-    }
-
     private string getHitTransformTag(RaycastHit2D hit)
     {
         return hit.transform.tag;
     }
+
+
+
+
+    #region Console Logging Functions
+
+    private void printHitTransformTag(string tag)
+    {
+        Debug.Log("There is a " + tag + " in the way.");
+    }
+
+    #endregion
 
     
 }
