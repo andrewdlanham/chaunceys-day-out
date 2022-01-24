@@ -18,9 +18,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (isTryingToMove()) {
-            _boxCollider.enabled = false;
             attemptMove();
-            _boxCollider.enabled = true;
         }    
     }
 
@@ -44,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
     }
+
 
     private void movePlayer() 
     {

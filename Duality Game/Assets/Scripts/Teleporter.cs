@@ -7,12 +7,12 @@ public class Teleporter : MonoBehaviour
 
     [SerializeField] Teleporter _otherTeleporter;
 
-    private bool _readyToTeleport;
+    [SerializeField] private bool _isReadyToTeleport;
 
     // Start is called before the first frame update
     void Start()
     {
-        _readyToTeleport = true;
+        _isReadyToTeleport = true;
     }
 
     // Update is called once per frame
@@ -23,20 +23,28 @@ public class Teleporter : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider) 
     {
-        if (_readyToTeleport) {
-            Debug.Log("Player collided with a teleporter.");
+        Debug.Log("Player triggered a teleporter.");
+
+        if (_isReadyToTeleport && _otherTeleporter._isReadyToTeleport) {
+            transform.GetComponent<BoxCollider2D>().enabled = false;
             GameObject collisionGameObject = collider.gameObject;
-            collisionGameObject.transform.position = _otherTeleporter.transform.position;
+            teleportObject(collisionGameObject);
         }
         
-        _readyToTeleport = false;
-        _otherTeleporter._readyToTeleport = false;
+        _isReadyToTeleport = false;
     }
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        _readyToTeleport = true;
-        _otherTeleporter._readyToTeleport = false;
-        Debug.Log("Player left a teleporter.");
+        Debug.Log("Player exited a teleporter.");
+
+        _isReadyToTeleport = true;
+        _otherTeleporter._isReadyToTeleport = true;
+        _otherTeleporter.transform.GetComponent<BoxCollider2D>().enabled = true;
+    }
+
+    private void teleportObject(GameObject obj)
+    {
+        obj.transform.position = _otherTeleporter.transform.position;
     }
 }
