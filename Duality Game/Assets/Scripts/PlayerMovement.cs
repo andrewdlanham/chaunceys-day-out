@@ -32,7 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private void attemptMove() 
     {
         
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, getMovementVector(), 1);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position + getMovementVector(), getMovementVector(), 0.1f);
         if (hit.collider != null) {
             string tag = hit.transform.tag;
             Debug.Log("Moving into " + tag);
