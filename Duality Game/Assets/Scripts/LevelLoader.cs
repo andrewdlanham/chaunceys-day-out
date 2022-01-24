@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelLoader : MonoBehaviour
 {
 
-    [SerializeField] private string sceneName;
+    [SerializeField] private string _sceneToLoadName;
 
     // Start is called before the first frame update
     void Start()
@@ -24,6 +24,6 @@ public class LevelLoader : MonoBehaviour
     {
         Debug.Log("Player collided with a level loader.");
         GameObject collisionGameObject = collider.gameObject;
-        SceneManager.LoadScene(sceneName); // TODO: Switch from hard-coded string to scene numbers
+        SceneManager.LoadScene(_sceneToLoadName);
     }
 }

@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gate: {fileID: 0}
-  openSprite: {fileID: 21300024, guid: ae3918a914038694d852d0bb81f62473, type: 3}
+  _openSprite: {fileID: 21300024, guid: ae3918a914038694d852d0bb81f62473, type: 3}
 --- !u!61 &6094940228035662449
 BoxCollider2D:
   m_ObjectHideFlags: 0

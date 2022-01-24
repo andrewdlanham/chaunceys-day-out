@@ -34,8 +34,8 @@ public class PlayerMovement : MonoBehaviour
         
         RaycastHit2D hit = Physics2D.Raycast(transform.position, getMovementVector(), 1);
         if (hit.collider != null) {
-            string tag = getHitTransformTag(hit);
-            printHitTransformTag(tag);
+            string tag = hit.transform.tag;
+            Debug.Log("Moving into " + tag);
             if (tag != "Wall" && tag != "Player") {
                 movePlayer();
             }
@@ -80,23 +80,6 @@ public class PlayerMovement : MonoBehaviour
         return "";
     
     }
-
-    private string getHitTransformTag(RaycastHit2D hit)
-    {
-        return hit.transform.tag;
-    }
-
-
-
-
-    #region Console Logging Functions
-
-    private void printHitTransformTag(string tag)
-    {
-        Debug.Log("There is a " + tag + " in the way.");
-    }
-
-    #endregion
 
     
 }
