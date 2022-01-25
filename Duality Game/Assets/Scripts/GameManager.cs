@@ -15,12 +15,20 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         checkForRestart();
+        checkForClose();
     }
 
     private void checkForRestart() {
         if (Input.GetKeyDown("r")) {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             Debug.Log("Level restarted.");
+        }
+    }
+
+    private void checkForClose() {
+        if (Input.GetKeyDown("escape")) {
+            Application.Quit();
+            Debug.Log("Game Closed");
         }
     }
 }
