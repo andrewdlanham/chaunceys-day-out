@@ -50,19 +50,19 @@ public class PlayerMovement : MonoBehaviour
     private void attemptPush(RaycastHit2D hit)
     {
         RaycastHit2D pushed = Physics2D.Raycast(hit.transform.position + getMovementVector(), getMovementVector(), 0.1f);
-              if (pushed.collider != null) {
+        if (pushed.collider != null) {
             string tag = pushed.transform.tag;
             Debug.Log("Moving into " + tag);
             if (tag != "Wall" && tag != "Player") {
-                pushPlayer(hit);
+                push(hit);
             }
 
         } else {
-            pushPlayer(hit);
+            push(hit);
         }
     }
 
-    private void pushPlayer(RaycastHit2D hit)
+    private void push(RaycastHit2D hit)
     {
         hit.transform.position += getMovementVector();
     }
