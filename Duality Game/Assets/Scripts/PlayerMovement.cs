@@ -34,10 +34,10 @@ public class PlayerMovement : MonoBehaviour
         if (hit.collider != null) {
             string tag = hit.transform.tag;
             Debug.Log("Moving into " + tag);
-            if (tag != "Wall" && tag != "Player") {
+            if (tag != "Wall" && tag != "Player" && tag != "Pushable") {
                 movePlayer();
             }
-            if (tag == "Player") {
+            if (tag == "Player" || tag == "Pushable") {
                 attemptPush(hit);
             }
 
@@ -47,22 +47,24 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
-    private void attemptPush(RaycastHit2D hit)
+    private void attemptPush(RaycastHit2D pushed)
     {
-        RaycastHit2D pushed = Physics2D.Raycast(hit.transform.position + getMovementVector(), getMovementVector(), 0.1f);
-        if (pushed.collider != null) {
-            string tag = pushed.transform.tag;
-            Debug.Log("Moving into " + tag);
-            if (tag != "Wall" && tag != "Player") {
-                push(hit);
+        RaycastHit2D hit = Physics2D.Raycast(pushed.transform.position + getMovementVector(), getMovementVector(), 0.1f);
+        if (hit.collider != null) {
+            string tag = hit.transform.tag;
+            Debug.Log(pushed.transform.tag + " moving into " + tag);
+            if (tag == "Player" || tag == "Pushable") {
+                attemptPush(hit);
+            } else if (tag != "Wall") {
+                move(pushed);
             }
 
         } else {
-            push(hit);
+            move(pushed);
         }
     }
 
-    private void push(RaycastHit2D hit)
+    private void move(RaycastHit2D hit)
     {
         hit.transform.position += getMovementVector();
     }
