@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         if (isTryingToMove()) {
-            attemptMove();
+            attemptMove(transform);
         }    
     }
 
@@ -27,52 +27,28 @@ public class PlayerMovement : MonoBehaviour
         return (getDirection() != "");
     }
 
-    private void attemptMove() 
+    private void attemptMove(Transform trans) 
     {
         
-        RaycastHit2D hit = Physics2D.Raycast(transform.position + getMovementVector(), getMovementVector(), 0.1f);
+        RaycastHit2D hit = Physics2D.Raycast(trans.position + getMovementVector(), getMovementVector(), 0.1f);
         if (hit.collider != null) {
             string tag = hit.transform.tag;
-            Debug.Log("Moving into " + tag);
-            if (tag != "Wall" && tag != "Player" && tag != "Pushable") {
-                movePlayer();
-            }
+            Debug.Log(trans.tag + " moving into " + tag);
             if (tag == "Player" || tag == "Pushable") {
-                attemptPush(hit);
-            }
-
-        } else {
-            movePlayer();
-        }
-
-    }
-
-    private void attemptPush(RaycastHit2D pushed)
-    {
-        RaycastHit2D hit = Physics2D.Raycast(pushed.transform.position + getMovementVector(), getMovementVector(), 0.1f);
-        if (hit.collider != null) {
-            string tag = hit.transform.tag;
-            Debug.Log(pushed.transform.tag + " moving into " + tag);
-            if (tag == "Player" || tag == "Pushable") {
-                attemptPush(hit);
+                attemptMove(hit.transform);
             } else if (tag != "Wall") {
-                move(pushed);
+                move(trans);
             }
 
         } else {
-            move(pushed);
+            move(trans);
         }
+
     }
 
-    private void move(RaycastHit2D hit)
+    private void move(Transform trans)
     {
-        hit.transform.position += getMovementVector();
-    }
-
-
-    private void movePlayer() 
-    {
-        transform.position += getMovementVector();
+        trans.position += getMovementVector();
     }
 
     private Vector3 getMovementVector() 
