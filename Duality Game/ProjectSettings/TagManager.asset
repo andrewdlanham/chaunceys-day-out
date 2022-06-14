@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Background
   - Wall
+  - Pushable
   layers:
   - Default
   - TransparentFX
