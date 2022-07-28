@@ -7,6 +7,7 @@ TagManager:
   - Background
   - Wall
   - Pushable
+  - Teleporter
   layers:
   - Default
   - TransparentFX
