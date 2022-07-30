@@ -6,7 +6,6 @@ public class Teleporter : MonoBehaviour
 {
 
     [SerializeField] Teleporter _otherTeleporter;
-
     [SerializeField] private bool _isReadyToTeleport;
 
     // Start is called before the first frame update

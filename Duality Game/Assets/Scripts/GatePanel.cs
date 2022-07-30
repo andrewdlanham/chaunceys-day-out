@@ -18,7 +18,7 @@ public class GatePanel : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        Debug.Log("Moved off gate panel.");
+        Debug.Log("Moved off of gate panel.");
         _gate.gameObject.SetActive(true);
         transform.GetComponent<SpriteRenderer>().sprite = _unactivatedSprite;
     }

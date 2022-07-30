@@ -16,6 +16,6 @@ public class GateButton : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        Debug.Log("Moved off gate button.");
+        Debug.Log("Moved off of gate button.");
     }
 }
