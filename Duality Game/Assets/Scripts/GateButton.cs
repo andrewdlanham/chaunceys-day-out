@@ -12,6 +12,7 @@ public class GateButton : MonoBehaviour
         Debug.Log("Moved onto gate button.");
         _gate.gameObject.SetActive(false);
         transform.GetComponent<SpriteRenderer>().sprite = _openSprite;
+        
     }
 
     void OnTriggerExit2D(Collider2D collider)
