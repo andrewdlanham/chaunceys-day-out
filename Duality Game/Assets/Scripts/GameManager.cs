@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         checkForRestart();
-        checkForClose();
+        checkForESC();
     }
 
     private void checkForRestart() {
@@ -25,10 +25,9 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void checkForClose() {
+    private void checkForESC() {
         if (Input.GetKeyDown("escape")) {
-            Application.Quit();
-            Debug.Log("Game Closed");
+            SceneManager.LoadScene("CompletedMainMenu");
         }
     }
 }
