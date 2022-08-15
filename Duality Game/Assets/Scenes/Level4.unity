@@ -410,6 +410,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 818668346890517078, guid: 4f92422454748ff42b577345bf0dbbb5, type: 3}
+      propertyPath: _sceneToLoadName
+      value: FinalScene
+      objectReference: {fileID: 0}
     - target: {fileID: 818668346890517079, guid: 4f92422454748ff42b577345bf0dbbb5, type: 3}
       propertyPath: m_RootOrder
       value: 4

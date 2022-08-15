@@ -6,6 +6,6 @@ using UnityEngine.SceneManagement;
 public class FinalScene : MonoBehaviour
 {
     public void ReturnToMainMenu() {
-        SceneManager.LoadScene("MainMenu");
+        SceneManager.LoadScene("CompletedMainMenu");
     }
 }
