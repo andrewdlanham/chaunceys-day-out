@@ -22,7 +22,7 @@ public class Teleporter : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider) 
     {
-        Debug.Log("Player triggered a teleporter.");
+        Debug.Log("Teleporter triggered.");
 
         if (_isReadyToTeleport && _otherTeleporter._isReadyToTeleport) {
             transform.GetComponent<BoxCollider2D>().enabled = false;
@@ -35,7 +35,7 @@ public class Teleporter : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collider)
     {
-        Debug.Log("Player exited a teleporter.");
+        Debug.Log("Teleporter exited.");
 
         _isReadyToTeleport = true;
         _otherTeleporter._isReadyToTeleport = true;
